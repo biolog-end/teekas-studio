@@ -9,22 +9,22 @@ friendly). The interface is in Russian; section names below are given in both la
 
 ## Features
 
-- **Talking avatar** — a head/body cut-out that moves with the voice. Eight motion
+- **Talking avatar** - a head/body cut-out that moves with the voice. Eight motion
   styles, from a soft jelly deformer to dynamic body rotation.
-- **Live AI replies** — the reply is spoken sentence by sentence while it is still
+- **Live AI replies** - the reply is spoken sentence by sentence while it is still
   streaming, so the character starts talking before the whole answer is written.
-- **Emotions** — the model inserts `emotion(...)` commands, and the avatar answers with
+- **Emotions** - the model inserts `emotion(...)` commands, and the avatar answers with
   anime-style marks around its head (sparkles, anger vein, sweat drop, rain cloud,
   thought bubble…) and matching body acting.
-- **Soundboard** — `soundboard(...)` commands or panel buttons play effects over the
+- **Soundboard** - `soundboard(...)` commands or panel buttons play effects over the
   speech, each with its own full-screen animation.
-- **Voice and screen** — talk to the character through the microphone (browser speech
+- **Voice and screen** - talk to the character through the microphone (browser speech
   recognition), or send it a screenshot of your primary monitor to comment on.
-- **Several API keys** — keys rotate automatically when a quota runs out, and a
+- **Several API keys** - keys rotate automatically when a quota runs out, and a
   fallback model chain keeps the stream from going silent.
-- **Character workshop** — upload a PNG, set the neck line, and the image is split into
+- **Character workshop** - upload a PNG, set the neck line, and the image is split into
   head and body.
-- **Scene editor** — drag the character on a 16:9 preview, resize or flip it, and place
+- **Scene editor** - drag the character on a 16:9 preview, resize or flip it, and place
   the subtitles. Positions are stored in percent, so they survive resolution changes.
 - Light and dark themes.
 

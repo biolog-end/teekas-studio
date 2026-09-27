@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('page-title').textContent = title;
         document.getElementById('page-description').textContent = description;
         document.getElementById('section-label').textContent = label;
-        document.title = 'Teekas — ' + label;
+        document.title = 'Teekas - ' + label;
         history.replaceState(null, '', '#' + name);
     }
     tabs.forEach((tab, index) => {

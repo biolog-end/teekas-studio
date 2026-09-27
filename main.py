@@ -36,7 +36,7 @@ app.config['MAX_CONTENT_LENGTH'] = int(os.getenv('MAX_UPLOAD_MB', '16')) * 1024 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 colorama.init(autoreset=True)
 
-# Проверяем наличие FFmpeg — без него pydub не сможет менять скорость/высоту звука
+# Проверяем наличие FFmpeg - без него pydub не сможет менять скорость/высоту звука
 if which('ffmpeg') is None:
     app.logger.warning(
         "FFmpeg не найден в PATH. Синтез речи с изменением скорости/тона работать не будет. "
@@ -231,7 +231,7 @@ def list_effect_images(folder):
     """
     Возвращает список путей к картинкам из подпапки static/img/<folder>.
     Используется оверлеями эффектов (например, картинки труб для Falling Pipe).
-    Если папки нет — возвращаем пустой список (фича мягко деградирует).
+    Если папки нет - возвращаем пустой список (фича мягко деградирует).
     """
     # Защита от выхода за пределы static/img (path traversal)
     safe_name = os.path.basename(folder)

@@ -78,7 +78,7 @@ def _cache_key(persona_id: str) -> str:
 def check_budget(model: str, system_prompt: str, history: list[dict], has_image: bool, strict: bool = False) -> None:
     """Refuse a request that would cross the free daily limit (openai_budget, shared by all projects).
 
-    ``strict`` — used by the fallback chain: an unknown remainder also refuses the request.
+    ``strict`` - used by the fallback chain: an unknown remainder also refuses the request.
     """
     budget = providers.budget()
     if budget is None:

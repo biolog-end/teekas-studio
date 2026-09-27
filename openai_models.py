@@ -3,7 +3,7 @@
 Как и gemini_models, каталог захардкожен (цены через API не отдаются) и дополняется
 живым `client.models.list()`. Бесплатный дневной лимит действует только при включённой
 в настройках организации OpenAI опции «share traffic»; считается он в токенах и по двум
-группам моделей — их состав ниже.
+группам моделей - их состав ниже.
 """
 
 import re
@@ -26,10 +26,10 @@ FREE_TIER_GROUPS = {
     },
 }
 
-# input_price / output_price — Standard API, доллары за 1M токенов, обычный вход / выход.
+# input_price / output_price - Standard API, доллары за 1M токенов, обычный вход / выход.
 # Источники: https://developers.openai.com/api/docs/pricing и страницы моделей.
 # Для длинного контекста и других service tiers тариф может отличаться.
-# reasoning — принимает ли модель параметр reasoning.effort.
+# reasoning - принимает ли модель параметр reasoning.effort.
 MODELS = [
     {"id": "gpt-5.6-sol", "label": "GPT-5.6 Sol", "input_price": 4.00, "output_price": 20.00,
      "reasoning": True, "note": "Платная: вне предложения вашего аккаунта. Цена по акции как минимум до 21.11.2026."},
@@ -56,7 +56,7 @@ MODELS = [
     {"id": "gpt-5-nano", "label": "GPT-5 nano", "input_price": 0.05, "output_price": 0.40,
      "reasoning": True, "note": "Самая дешёвая. Группа 2,5 млн/день."},
     {"id": "gpt-4.1", "label": "GPT-4.1", "input_price": 2.00, "output_price": 8.00,
-     "reasoning": False, "note": "Без reasoning — быстрые ответы. Группа 250 тыс./день."},
+     "reasoning": False, "note": "Без reasoning - быстрые ответы. Группа 250 тыс./день."},
     {"id": "gpt-4.1-mini", "label": "GPT-4.1 mini", "input_price": 0.40, "output_price": 1.60,
      "reasoning": False, "note": "Без reasoning, быстрая. Группа 2,5 млн/день."},
     {"id": "gpt-4.1-nano", "label": "GPT-4.1 nano", "input_price": 0.10, "output_price": 0.40,
@@ -99,7 +99,7 @@ def selector_rank(model_id):
     return (3, order.index(model_id) if model_id in order else len(order))
 
 # Модели OpenAI, которые не для текстовой переписки, устаревшие семейства и снапшоты
-# (gpt-4.1-2025-04-14, gpt-3.5-turbo-0125, *-chat-latest) — дублируют базовое имя.
+# (gpt-4.1-2025-04-14, gpt-3.5-turbo-0125, *-chat-latest) - дублируют базовое имя.
 _NON_TEXT_MARKERS = (
     "audio", "realtime", "transcribe", "tts", "search", "image", "embedding", "moderation",
     "instruct", "codex", "whisper", "dall-e", "davinci", "babbage", "computer-use", "preview",
@@ -119,7 +119,7 @@ def get_model_info(model_id):
 
 
 def supports_reasoning(model_id):
-    """Принимает ли модель параметр reasoning. Для незнакомых — по имени: o-серия и gpt-5+."""
+    """Принимает ли модель параметр reasoning. Для незнакомых - по имени: o-серия и gpt-5+."""
     info = get_model_info(model_id)
     if info is not None:
         return bool(info.get("reasoning"))
@@ -142,7 +142,7 @@ def temperature_mode(model_id):
 
 
 def free_tier_group(model_id):
-    """'large' | 'small' | None — к какой бесплатной дневной группе относится модель."""
+    """'large' | 'small' | None - к какой бесплатной дневной группе относится модель."""
     name = _normalize(model_id)
     for group, info in FREE_TIER_GROUPS.items():
         if name in info["models"]:
@@ -213,7 +213,7 @@ def build_selector_options(live_model_ids=None):
 
 
 def fetch_live_model_ids(client):
-    """Список моделей у API OpenAI. Ошибку глушит — это не критично."""
+    """Список моделей у API OpenAI. Ошибку глушит - это не критично."""
     if client is None:
         return []
     try:

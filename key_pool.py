@@ -433,7 +433,7 @@ def _classify_gemini(exc, model):
     if code in (403, 404) and model and model_error:
         explanation = 'модель недоступна этому проекту'
         if 'new users' in message.lower():
-            explanation += '; Google ограничивает её для новых пользователей/проектов — выберите новую модель'
+            explanation += '; Google ограничивает её для новых пользователей/проектов - выберите новую модель'
         return failure_result('model_unavailable', model, time.time() + MODEL_ACCESS_COOLDOWN_S,
                               f'{explanation}: {message}. Перепроверка через 5 мин')
     if code in (500, 502, 503, 504):
@@ -455,7 +455,7 @@ def _classify_openai(exc, model):
                 or 'insufficient_quota' in message:
             # No credits or the free daily volume is gone: this is about the key, not the model.
             return _failure(code, message, 'quota', None, time.time() + INSUFFICIENT_QUOTA_COOLDOWN_S,
-                            'нет кредитов (insufficient_quota) — пополните баланс на '
+                            'нет кредитов (insufficient_quota) - пополните баланс на '
                             'platform.openai.com/settings/organization/billing или включите '
                             '«share traffic with OpenAI» ради бесплатного дневного лимита')
         wait = _openai_wait_seconds(exc) or DEFAULT_MINUTE_COOLDOWN_S
@@ -478,7 +478,7 @@ _HINTS = {
     'gemini': {
         400: "Неверный запрос.",
         403: "Доступ запрещён: ключ не подходит или у него нет прав.",
-        404: "Модель или ресурс не найдены — проверьте имя модели.",
+        404: "Модель или ресурс не найдены - проверьте имя модели.",
         429: "Квоты API исчерпаны.",
         500: "Внутренняя ошибка сервера Gemini.",
         503: "Сервис Gemini временно недоступен.",
@@ -657,7 +657,7 @@ def _all_busy_message(model, provider):
     wait, reason, model_specific = min(blockers, key=lambda b: b[0])
     if model_specific:
         return (f"Модель {model} сейчас недоступна на всех ключах {label} ({len(enabled)}): {reason}. "
-                f"Ближайшая повторная попытка через {_fmt_wait(wait)} — или выберите другую модель.")
+                f"Ближайшая повторная попытка через {_fmt_wait(wait)} - или выберите другую модель.")
     return f"Все ключи {label} ({len(enabled)}) на паузе: {reason}. Ближайший освободится через {_fmt_wait(wait)}."
 
 
@@ -818,7 +818,7 @@ def stream_with_rotation(fn, model, *, try_all_keys_on_error=False, input_tokens
                     with _lock:
                         entry['enabled'] = False
                         st['cooldown_reason'] = 'ключ отклонён'
-                    logging.error(f"Ключ '{label}' недействителен — выключаю его.")
+                    logging.error(f"Ключ '{label}' недействителен - выключаю его.")
                     errors_seen.append(f'{label}: {description}')
                     yield {'type': 'notice', 'text': f'{label}: ключ отклонён и выключен.'}
                     break

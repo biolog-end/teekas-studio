@@ -130,7 +130,7 @@ class PttController:
 
     def start(self):
         if not _HAS_KEYBOARD:
-            logging.warning("Библиотека keyboard не установлена — глобальные хоткеи отключены.")
+            logging.warning("Библиотека keyboard не установлена - глобальные хоткеи отключены.")
             return
         self._register()
 

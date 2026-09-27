@@ -24,7 +24,7 @@ if errorlevel 1 (
 
 "%PYTHON%" -c "import urllib.request as u; u.urlopen('%PANEL_URL%', timeout=2)" > nul 2>&1
 if not errorlevel 1 (
-    echo   Студия уже запущена — открываю панель.
+    echo   Студия уже запущена - открываю панель.
     start "" "%PANEL_URL%"
     exit /b 0
 )

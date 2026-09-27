@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const providerFor = (model) => (/^(gpt-|o1|o3|o4|o5|chatgpt-)/i.test(String(model || '').trim()) ? 'openai' : 'gemini');
     const PROVIDER_LABELS = { gemini: 'Gemini', openai: 'OpenAI' };
     const EMOTIONS = SceneConfig.emotions;
-    const DEFAULT_SYSTEM_PROMPT = 'Ты — живой и харизматичный персонаж. Общайся естественно и по делу, отвечай так, как говорил бы живой человек.';
+    const DEFAULT_SYSTEM_PROMPT = 'Ты - живой и харизматичный персонаж. Общайся естественно и по делу, отвечай так, как говорил бы живой человек.';
     const VOICE_NOTE = '\n\n{Системный текст: идёт голосовое общение. Если реплика оборвана или плохо распознана, попроси повторить или уточнить.}';
     const SCREEN_PROMPT = '{Системный текст: это снимок первого монитора пользователя. Коротко и живо прокомментируй важное на экране или помоги с тем, что там происходит.}';
 
@@ -219,12 +219,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function buildRules() {
         const soundboard = effects.length
-            ? effects.map((effect) => `   • soundboard(${effect.id}) — ${effect.name}`).join('\n')
+            ? effects.map((effect) => `   • soundboard(${effect.id}) - ${effect.name}`).join('\n')
             : '   • нет доступных эффектов';
-        const emotions = EMOTIONS.map((emotion) => `   • emotion(${emotion.id}) — ${emotion.hint}`).join('\n');
-        return `[СИСТЕМНЫЕ ПРАВИЛА ОТВЕТА — соблюдай всегда]
+        const emotions = EMOTIONS.map((emotion) => `   • emotion(${emotion.id}) - ${emotion.hint}`).join('\n');
+        return `[СИСТЕМНЫЕ ПРАВИЛА ОТВЕТА - соблюдай всегда]
 1. Пиши только то, что персонаж произносит вслух: без ремарок в звёздочках и скобках, без Markdown, списков и эмодзи.
-2. Текст в фигурных скобках — системная информация приложения, а не слова пользователя.
+2. Текст в фигурных скобках - системная информация приложения, а не слова пользователя.
 3. Эмоции. Команда emotion(идентификатор) меняет пластику и графику аватара. Ставь её прямо в тексте перед фразой, к которой она относится, 1–2 раза за ответ, когда настроение заметно меняется:
 ${emotions}
 4. Звуки. soundboard(идентификатор) проигрывает эффект поверх речи; используй редко и только к месту:
@@ -974,7 +974,7 @@ ${soundboard}
         const provider = providerFor(id);
         const info = modelInfo(id);
         const parts = [PROVIDER_LABELS[provider]];
-        if (!info) parts.push(modelCatalog.models.length ? 'нет в каталоге — проверь имя' : 'каталог загружается');
+        if (!info) parts.push(modelCatalog.models.length ? 'нет в каталоге - проверь имя' : 'каталог загружается');
         else if (provider === 'openai') parts.push(info.free_tier ? info.price.split(' · ').pop() : 'платная');
         else if (info.free_tier === true) parts.push(dailyLimit(info.id) ? `бесплатно, ${dailyLimit(info.id)} запросов в день на проект` : 'бесплатно');
         else parts.push(info.free_tier === false ? 'только платно' : 'бесплатная квота не подтверждена');
@@ -1155,7 +1155,7 @@ ${soundboard}
             row.append(cell('td', key.label));
             models.forEach((id) => {
                 const usage = key.gemini_usage.find((item) => item.model === id);
-                const td = cell('td', !usage ? '—' : usage.blocked ? 'пауза' : `${usage.remaining_day} / ${usage.limits.rpd}`);
+                const td = cell('td', !usage ? '-' : usage.blocked ? 'пауза' : `${usage.remaining_day} / ${usage.limits.rpd}`);
                 if (usage) {
                     td.dataset.level = usage.blocked || usage.remaining_day <= 0 ? 'empty' : usage.remaining_day / usage.limits.rpd < .25 ? 'low' : '';
                     td.title = usage.reason || `Сброс через ${formatReset(usage.reset_at - Date.now() / 1000)}`;
@@ -1200,7 +1200,7 @@ ${soundboard}
             renderFallbackChain();
             refreshBudget();
             loadModels();
-            showStatus('Ключи сохранены. Паузы сброшены — каждый ключ получит новый шанс.', 'success');
+            showStatus('Ключи сохранены. Паузы сброшены - каждый ключ получит новый шанс.', 'success');
         } catch (error) {
             showStatus(error.message, 'error');
         } finally {

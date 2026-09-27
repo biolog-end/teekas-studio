@@ -53,7 +53,7 @@ def default_model(provider):
 
 
 def memory_model_for(model_name):
-    """Модель для сжатия памяти — того же провайдера, что и модель чата,
+    """Модель для сжатия памяти - того же провайдера, что и модель чата,
     иначе память умирает, как только у второго провайдера нет ключей."""
     if provider_for_model(model_name) == "openai":
         return openai_models.MEMORY_MODEL
