@@ -1,0 +1,65 @@
+[
+  {
+    "groupName": "Улучшенные анимации",
+    "animations": [
+      {
+        "id": "jelly_deformer",
+        "name": "Желейный деформер",
+        "functionName": "animateJellyDeformer",
+        "type": "full"
+      },
+      {
+        "id": "dynamic_rotation",
+        "name": "Динамичное вращение",
+        "functionName": "animateDynamicRotation",
+        "type": "full"
+      }
+    ]
+  },
+  {
+    "groupName": "Динамичные",
+    "animations": [
+      {
+        "id": "expressive_sway",
+        "name": "Экспрессивное покачивание",
+        "functionName": "animateExpressiveSway",
+        "type": "full"
+      },
+      {
+        "id": "opposite_rotate",
+        "name": "Противоположное вращение",
+        "functionName": "animateOppositeRotate",
+        "type": "full"
+      },
+      {
+        "id": "frequency_deform",
+        "name": "Частотный деформер",
+        "functionName": "animateFrequencyDeform",
+        "type": "head_only"
+      }
+    ]
+  },
+  {
+    "groupName": "Классические",
+    "animations": [
+      {
+        "id": "classic_rotate",
+        "name": "Вращение головы",
+        "functionName": "animateClassicRotate",
+        "type": "head_only"
+      },
+      {
+        "id": "squash",
+        "name": "Сжатие",
+        "functionName": "animateSquash",
+        "type": "head_only"
+      },
+      {
+        "id": "bounce",
+        "name": "Подпрыгивание",
+        "functionName": "animateBounce",
+        "type": "head_only"
+      }
+    ]
+  }
+]

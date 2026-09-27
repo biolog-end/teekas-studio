@@ -1,0 +1,8 @@
+{
+  "_comment": "Скопируйте файл в api_keys.json (он в .gitignore) или добавьте ключи в панели: «Ключи и лимиты». Старый формат с api_keys/openai_api_keys переводится автоматически.",
+  "keys": [
+    {"id": "gemini1", "label": "Gemini, проект 1", "key": "ВАШ_КЛЮЧ_GEMINI", "enabled": true, "provider": "gemini"},
+    {"id": "gemini2", "label": "Gemini, проект 2", "key": "ВАШ_ВТОРОЙ_КЛЮЧ_GEMINI", "enabled": true, "provider": "gemini"},
+    {"id": "openai1", "label": "OpenAI", "key": "ВАШ_SK_PROJ_КЛЮЧ", "enabled": true, "provider": "openai"}
+  ]
+}

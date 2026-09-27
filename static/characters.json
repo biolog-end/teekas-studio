@@ -1,0 +1,10 @@
+[
+  {
+    "id": "starter",
+    "name": "Стартовый персонаж",
+    "images": {
+      "head": "static/characters/starter/head.png",
+      "body": "static/characters/starter/body.png"
+    }
+  }
+]

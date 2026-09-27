@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#292536">
+    <title>Teekas — Студия</title>
+    <link rel="icon" href="{{ url_for('static', filename='img/teekas.ico') }}">
+    <script src="{{ url_for('static', filename='js/theme.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/control.css') }}">
+</head>
+<body>
+    <a class="skip-link" href="#workspace">К содержимому</a>
+    <div class="app-shell" id="control-panel">
+        <aside class="sidebar">
+            <a href="/control" class="brand" aria-label="Teekas — главная">
+                <span class="brand-symbol" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span>teekas<span class="brand-caption">Твоя маленькая студия</span></span>
+            </a>
+            <nav class="studio-nav" role="tablist" aria-label="Разделы студии" aria-orientation="vertical">
+                <button type="button" class="nav-item" id="tab-live" role="tab" aria-selected="true" aria-controls="panel-live" data-panel="live"><span class="nav-glyph" aria-hidden="true">◉</span>Студия</button>
+                <button type="button" class="nav-item" id="tab-voice" role="tab" aria-selected="false" aria-controls="panel-voice" tabindex="-1" data-panel="voice"><span class="nav-glyph" aria-hidden="true">≋</span>Голос и образ</button>
+                <button type="button" class="nav-item" id="tab-ai" role="tab" aria-selected="false" aria-controls="panel-ai" tabindex="-1" data-panel="ai"><span class="nav-glyph" aria-hidden="true">✳</span>Характер и ИИ</button>
+                <button type="button" class="nav-item" id="tab-keys" role="tab" aria-selected="false" aria-controls="panel-keys" tabindex="-1" data-panel="keys"><span class="nav-glyph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="8" cy="15" r="4.2"/><path d="M11 12l8.5-8.5M16.5 6.5l2.5 2.5M14 9l2 2"/></svg></span>Ключи и лимиты</button>
+                <button type="button" class="nav-item" id="tab-hotkeys" role="tab" aria-selected="false" aria-controls="panel-hotkeys" tabindex="-1" data-panel="hotkeys"><span class="nav-glyph" aria-hidden="true">⌘</span>Горячие клавиши</button>
+            </nav>
+            <div class="sidebar-links">
+                <a href="/creator"><span aria-hidden="true">＋</span> Создать персонажа</a>
+                <a href="/animation" target="_blank" rel="noopener"><span aria-hidden="true">↗</span> Окно для OBS</a>
+            </div>
+            <div class="sidebar-footer">
+                <span class="connection-light"></span>
+                <div>Локальная студия<small>Сделано Teekas</small></div>
+            </div>
+        </aside>
+
+        <div class="app-main">
+            <header class="topbar">
+                <div class="breadcrumb">Рабочее пространство<span aria-hidden="true">/</span><strong id="section-label">Студия</strong></div>
+                <div class="topbar-actions">
+                    <span id="ptt-status" class="ptt-status-pill" data-state="off"><span class="dot"></span><span id="ptt-status-text">Подключение…</span></span>
+                    <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Тёмная тема" aria-pressed="false">
+                        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+                        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></svg>
+                    </button>
+                </div>
+            </header>
+
+            <main id="workspace" tabindex="-1">
+                <div class="page-heading">
+                    <div><h1 id="page-title">За пультом.</h1><p id="page-description">Твой персонаж, его голос и всё, что происходит в эфире.</p></div>
+                    <div class="persona-toolbar">
+                        <label class="sr-only" for="persona-select">Текущая персона</label>
+                        <select id="persona-select"></select>
+                        <button id="new-persona-button" type="button" class="icon-button" title="Новая персона" aria-label="Новая персона">＋</button>
+                        <button id="save-persona-button" type="button" class="button-primary">Сохранить</button>
+                    </div>
+                </div>
+
+                <section id="panel-live" role="tabpanel" aria-labelledby="tab-live" class="view-panel">
+                    <div class="studio-layout">
+                        <div class="stage-column">
+                            <section class="stage" aria-label="Предпросмотр персонажа">
+                                <div class="stage-heading"><span class="stage-tag">Предпросмотр</span><span id="stage-state">За кулисами</span></div>
+                                <div class="stage-art" aria-hidden="true">
+                                    <div class="stage-disc"></div>
+                                    <div id="stage-character" class="stage-character">
+                                        <img id="stage-head" alt="" src="/static/characters/starter/head.png">
+                                        <img id="stage-body" alt="" src="/static/characters/starter/body.png">
+                                    </div>
+                                </div>
+                                <div class="stage-caption"><strong id="stage-name">Персонаж</strong><span>Готов к своей следующей реплике</span></div>
+                            </section>
+                            <div class="stage-controls">
+                                <button id="summon-button" type="button" class="button-dark">Призвать персонажа</button>
+                                <a href="/animation" target="_blank" rel="noopener" class="icon-button" title="Открыть окно для OBS" aria-label="Открыть окно для OBS">↗</a>
+                            </div>
+                            <section class="soundboard-section">
+                                <div class="section-heading"><h2>Звуки под рукой</h2><span id="effect-count"></span></div>
+                                <div id="special-effects-container"></div>
+                            </section>
+                        </div>
+
+                        <section class="conversation">
+                            <header class="conversation-header"><div><h2>Разговор</h2><span id="conversation-model">Загрузка модели…</span></div><span class="conversation-icon" aria-hidden="true">“</span></header>
+                            <div id="chat-history-display" role="log" aria-label="История разговора"></div>
+                            <div id="gemini-response-area">
+                                <div class="resp-tag">Новый ответ <span>Можно отредактировать перед озвучкой</span></div>
+                                <div id="gemini-response-text" contenteditable="true" role="textbox" aria-label="Черновик ответа" aria-multiline="true"></div>
+                                <div class="resp-actions"><button id="confirm-gemini-button" type="button" class="button-primary">Озвучить ответ</button><button id="discard-gemini-button" type="button" class="button-quiet">Отклонить</button></div>
+                            </div>
+                            <div class="composer">
+                                <label class="sr-only" for="gemini-prompt-input">Сообщение для ИИ</label>
+                                <textarea id="gemini-prompt-input" placeholder="О чём поговорим?" rows="3"></textarea>
+                                <div class="composer-tools">
+                                    <button id="voice-chat-button" type="button" class="button-quiet">Включить микрофон</button>
+                                    <button id="send-gemini-button" type="button" class="button-primary">Отправить</button>
+                                </div>
+                            </div>
+                            <div class="conversation-footer"><label class="switch"><input type="checkbox" id="auto-confirm-toggle"><span class="track"></span><span>Озвучивать сразу</span></label><span class="keyboard-hint"><kbd>Ctrl</kbd> + <kbd>Enter</kbd> отправить</span></div>
+                        </section>
+                    </div>
+                    <section class="manual-speech">
+                        <div><h2>Сказать своим голосом</h2><p>Напиши реплику — персонаж её произнесёт.</p></div>
+                        <label class="sr-only" for="text-input">Текст для озвучки</label>
+                        <textarea id="text-input" rows="2" placeholder="Реплика для персонажа…"></textarea>
+                        <button id="send-button" type="button">Озвучить</button>
+                    </section>
+                </section>
+
+                <section id="panel-voice" role="tabpanel" aria-labelledby="tab-voice" class="view-panel settings-view" hidden>
+                    <section class="settings-section">
+                        <div class="settings-intro"><h2>Образ</h2><p>Выбери персонажа и его манеру двигаться.</p><a href="/creator" class="text-link">Создать нового персонажа ↗</a></div>
+                        <div class="settings-fields">
+                            <div class="field"><label for="character-select">Персонаж</label><select id="character-select"></select></div>
+                            <div class="field"><label for="animation-select">Движение</label><select id="animation-select"></select></div>
+                        </div>
+                    </section>
+                    <section class="settings-section scene-settings-section">
+                        <div class="settings-intro"><h2>Место в кадре</h2><p>Перетащи персонажа на мини-сцене. Координаты и размер работают одинаково при любом разрешении OBS.</p><button id="scene-reset-button" type="button" class="text-button">Вернуть по умолчанию</button></div>
+                        <div class="settings-fields">
+                            <div id="scene-editor" class="scene-editor" aria-label="Расположение персонажа в кадре 16 на 9">
+                                <span class="scene-safe-zone" aria-hidden="true"></span>
+                                <div id="scene-preview-subtitle" class="scene-preview-subtitle">Так будут выглядеть субтитры</div>
+                                <div id="scene-preview-character" class="scene-preview-character" tabindex="0" role="application" aria-label="Персонаж. Перетаскивайте мышью или стрелками."><img id="scene-preview-head" alt=""><img id="scene-preview-body" alt=""><span>Перетащи меня</span></div>
+                            </div>
+                            <div class="scene-presets" aria-label="Быстрое расположение"><button type="button" data-scene-preset="left">Слева</button><button type="button" data-scene-preset="center">По центру</button><button type="button" data-scene-preset="right">Справа</button></div>
+                            <div class="field-row scene-coordinates">
+                                <div class="field"><div class="range-heading"><label for="scene-x">По горизонтали</label><output id="scene-x-value" for="scene-x">85%</output></div><input type="range" id="scene-x" min="0" max="100" value="85"></div>
+                                <div class="field"><div class="range-heading"><label for="scene-y">По вертикали</label><output id="scene-y-value" for="scene-y">98%</output></div><input type="range" id="scene-y" min="0" max="100" value="98"></div>
+                            </div>
+                            <div class="field"><div class="range-heading"><label for="scene-size">Размер персонажа</label><output id="scene-size-value" for="scene-size">40%</output></div><input type="range" id="scene-size" min="10" max="85" value="40"></div>
+                            <label class="switch"><input type="checkbox" id="scene-flip"><span class="track"></span><span>Смотреть в другую сторону</span></label>
+                        </div>
+                    </section>
+                    <section class="settings-section">
+                        <div class="settings-intro"><h2>Эмоции в кадре</h2><p>Графика рисуется поверх всей сцены. Персонаж может прыгать и смещаться, но всегда остаётся в границах экрана.</p></div>
+                        <div class="settings-fields">
+                            <div class="field"><label>Проверить эмоцию</label><div id="emotion-preview-container" class="preview-button-grid"></div></div>
+                            <div class="field"><label>Проверить анимацию звука</label><div id="effect-preview-container" class="preview-button-grid preview-button-grid-small"></div></div>
+                            <label class="switch"><input type="checkbox" id="scene-effects-enabled" checked><span class="track"></span><span>Показывать полноэкранную графику</span></label>
+                            <label class="switch"><input type="checkbox" id="scene-movement-enabled" checked><span class="track"></span><span>Разрешить эмоциям двигать персонажа</span></label>
+                            <div class="field"><div class="range-heading"><label for="scene-intensity">Сила реакции</label><output id="scene-intensity-value" for="scene-intensity">100%</output></div><input type="range" id="scene-intensity" min="0" max="1.5" step="0.1" value="1"></div>
+                        </div>
+                    </section>
+                    <section class="settings-section">
+                        <div class="settings-intro"><h2>Голос</h2><p>Подбери темп и высоту, которые подходят характеру.</p></div>
+                        <div class="settings-fields">
+                            <div class="field"><label for="language-select">Язык речи</label><select id="language-select">
+                                <option value="ru">Русский</option><option value="en">English</option><option value="ja">日本語</option><option value="de">Deutsch</option><option value="fr">Français</option><option value="es">Español</option><option value="it">Italiano</option><option value="ko">한국어</option><option value="zh">中文</option>
+                            </select></div>
+                            <div class="field-row">
+                                <div class="field"><div class="range-heading"><label for="speed-control">Темп</label><output id="speed-value" for="speed-control">1.0x</output></div><input type="range" id="speed-control" min="0.5" max="2.5" step="0.1" value="1"></div>
+                                <div class="field"><div class="range-heading"><label for="pitch-control">Высота</label><output id="pitch-value" for="pitch-control">1.0x</output></div><input type="range" id="pitch-control" min="0.5" max="2" step="0.1" value="1"></div>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="settings-section">
+                        <div class="settings-intro"><h2>Субтитры</h2><p>Текст для зрителей в окне анимации.</p></div>
+                        <div class="settings-fields">
+                            <label class="switch"><input type="checkbox" id="subtitle-enabled" checked><span class="track"></span><span>Показывать субтитры</span></label>
+                            <div class="field-row">
+                                <div class="field"><label for="subtitle-font-select">Шрифт</label><select id="subtitle-font-select"><option>Impact</option><option>Arial Black</option><option>Comic Sans MS</option><option>Courier New</option><option>Times New Roman</option></select></div>
+                                <div class="field"><label for="subtitle-color">Цвет текста</label><input type="color" id="subtitle-color" value="#FFFFFF"></div>
+                            </div>
+                            <div class="field"><div class="range-heading"><label for="subtitle-size">Размер</label><output id="subtitle-size-value" for="subtitle-size">36px</output></div><input type="range" id="subtitle-size" min="16" max="72" value="36"></div>
+                            <div class="field-row">
+                                <div class="field"><div class="range-heading"><label for="subtitle-x">Положение по X</label><output id="subtitle-x-value" for="subtitle-x">50%</output></div><input type="range" id="subtitle-x" min="0" max="100" value="50"></div>
+                                <div class="field"><div class="range-heading"><label for="subtitle-y">Положение по Y</label><output id="subtitle-y-value" for="subtitle-y">88%</output></div><input type="range" id="subtitle-y" min="5" max="98" value="88"></div>
+                            </div>
+                            <div class="field"><div class="range-heading"><label for="subtitle-width">Ширина области</label><output id="subtitle-width-value" for="subtitle-width">80%</output></div><input type="range" id="subtitle-width" min="20" max="100" value="80"></div>
+                        </div>
+                    </section>
+                    <p class="save-hint">Изменения сохраняются кнопкой «Сохранить» вверху.</p>
+                </section>
+
+                <section id="panel-ai" role="tabpanel" aria-labelledby="tab-ai" class="view-panel settings-view" hidden>
+                    <section class="settings-section">
+                        <div class="settings-intro"><h2>Личность</h2><p>Как его зовут, о чём он думает и как общается с тобой.</p></div>
+                        <div class="settings-fields">
+                            <div class="field"><label for="persona-name-input">Название персоны</label><input type="text" id="persona-name-input" placeholder="Например, ведущая ночного эфира"></div>
+                            <div class="field"><label for="system-prompt-input">Характер и правила общения</label><textarea id="system-prompt-input" rows="5" placeholder="Расскажи, каким должен быть персонаж…"></textarea></div>
+                            <details class="rules"><summary>Правила эмоций и звуковых эффектов</summary><label class="sr-only" for="ai-rules-display">Системные правила приложения</label><textarea id="ai-rules-display" readonly rows="8"></textarea></details>
+                        </div>
+                    </section>
+                    <section class="settings-section">
+                        <div class="settings-intro"><h2>Модель</h2><p>Каждый ответ начинается с первой модели цепочки. Если она упёрлась в лимит на всех ключах, отвечает следующая — эфир не замолкает.</p><button type="button" id="keys-shortcut" class="text-button">Ключи и остатки квот →</button></div>
+                        <div class="settings-fields">
+                            <label class="switch"><input type="checkbox" id="fallback-toggle" checked><span class="track"></span><span>Цепочка запасных моделей</span></label>
+                            <div id="fallback-editor" class="fallback-editor">
+                                <ol id="fallback-rows" class="fallback-rows" aria-label="Порядок моделей"></ol>
+                                <div class="button-row"><button type="button" id="fallback-add" class="button-quiet">Добавить модель</button><button type="button" id="fallback-preset" class="button-quiet">Схема Gemini → GPT</button></div>
+                                <p class="field-hint">Любое число моделей и любой порядок. Бесплатные модели GPT пропускаются, если запрос не помещается в дневной бюджет OpenAI.</p>
+                            </div>
+                            <div id="single-model" class="field-row" hidden><div class="field"><label for="ai-provider-select">Провайдер</label><select id="ai-provider-select"><option value="gemini">Google Gemini</option><option value="openai">OpenAI</option></select></div><div class="field"><label for="model-tier-select">Модель</label><input type="text" id="model-tier-select" list="ai-model-options" value="gemini-3.6-flash" spellcheck="false"></div></div>
+                            <datalist id="ai-model-options"></datalist><datalist id="chain-model-options"></datalist>
+                            <p id="model-note" class="model-note" aria-live="polite"></p>
+                            <div class="field-row"><div class="field"><label for="request-timeout-input">Ожидание ответа на одном ключе, сек</label><input type="number" id="request-timeout-input" min="5" max="600" step="1" value="60"></div></div>
+                            <div class="field"><label class="switch"><input type="checkbox" id="thinking-toggle"><span class="track"></span><span>Размышлять перед ответом</span></label><p class="field-hint">Ответ глубже, но первая фраза прозвучит на несколько секунд позже.</p></div>
+                            <label class="switch"><input type="checkbox" id="chat-cache-toggle" checked><span class="track"></span><span>Кэшировать диалог OpenAI</span></label>
+                        </div>
+                    </section>
+                    <section class="settings-section">
+                        <div class="settings-intro"><h2>Память</h2><p>Определи, что делать, когда разговор станет длинным.</p></div>
+                        <div class="settings-fields"><div class="field-row">
+                            <div class="field"><label for="context-mode-select">Обработка истории</label><select id="context-mode-select"><option value="summarize">Сжимать в краткую сводку</option><option value="truncate">Убирать старые сообщения</option><option value="full">Хранить целиком</option></select></div>
+                            <div class="field"><label for="context-limit-input">Порог сообщений</label><input type="number" id="context-limit-input" min="8" max="200" value="30"></div>
+                        </div></div>
+                    </section>
+                    <section class="settings-section">
+                        <div class="settings-intro"><h2>Инициатива</h2><p>После тишины персонаж может послушать фон и вступить в разговор.</p></div>
+                        <div class="settings-fields"><label class="switch"><input type="checkbox" id="idle-listen-toggle"><span class="track"></span><span>Разрешить фоновое прослушивание</span></label><div class="field"><label for="idle-delay-input">Начать после простоя, секунд</label><input type="number" id="idle-delay-input" min="30" max="3600" value="120"></div></div>
+                    </section>
+                    <p class="save-hint">Настройки модели и характера сохраняются отдельно для каждой персоны.</p>
+                </section>
+
+                <section id="panel-keys" role="tabpanel" aria-labelledby="tab-keys" class="view-panel settings-view" hidden>
+                    <section class="settings-section">
+                        <div class="settings-intro"><h2>Ключи API</h2><p>Запросы идут по кругу. Ключ, упёршийся в лимит, отдыхает до сброса квоты, а отклонённый выключается сам.</p><p>Квоты Google считаются на проект, а не на ключ: ротация помогает только между разными проектами.</p></div>
+                        <div class="settings-fields">
+                            <div id="keys-summary" class="keys-summary" aria-live="polite"></div>
+                            <ul id="keys-list" class="keys-list" aria-label="Подключённые ключи"></ul>
+                            <form id="key-add-form" class="key-add" autocomplete="off">
+                                <label class="sr-only" for="key-add-provider">Провайдер нового ключа</label><select id="key-add-provider"><option value="gemini">Gemini</option><option value="openai">OpenAI</option></select>
+                                <label class="sr-only" for="key-add-label">Подпись нового ключа</label><input id="key-add-label" placeholder="Подпись, например «Проект 2»" maxlength="60">
+                                <label class="sr-only" for="key-add-value">Новый ключ</label><input id="key-add-value" type="password" placeholder="Вставь ключ API" spellcheck="false">
+                                <button type="submit" id="key-add-button">Добавить</button>
+                            </form>
+                            <div class="keys-footer"><button type="button" id="keys-save-button" class="button-primary">Сохранить ключи</button><button type="button" id="keys-refresh" class="button-quiet">Обновить статус</button><span id="keys-dirty" class="field-hint"></span></div>
+                        </div>
+                    </section>
+                    <section class="settings-section">
+                        <div class="settings-intro"><h2>Остаток на сегодня</h2><p>Gemini — бесплатные квоты из общего счётчика всех твоих проектов, сброс в полночь по тихоокеанскому времени. OpenAI — дневной бюджет организации, сброс в 00:00 UTC.</p></div>
+                        <div class="settings-fields">
+                            <div id="quota-table" class="quota-table"></div>
+                            <div id="ai-budget-card" class="budget-card" data-state="idle">
+                                <div><strong id="ai-budget-title">Расход OpenAI</strong><span id="ai-budget-detail">Загрузка данных…</span></div>
+                                <button type="button" id="ai-budget-refresh" class="button-quiet">Обновить</button>
+                                <div class="budget-track" aria-hidden="true"><span id="ai-budget-fill"></span></div>
+                            </div>
+                        </div>
+                    </section>
+                    <p class="save-hint">Ключи общие для всех персон и хранятся только на этом компьютере, в api_keys.json.</p>
+                </section>
+
+                <section id="panel-hotkeys" role="tabpanel" aria-labelledby="tab-hotkeys" class="view-panel settings-view" hidden>
+                    <div class="shortcut-intro"><div class="deck-mini" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div><div><h2>Один тап на Stream Deck.</h2><p>Назначь эти же сочетания кнопкам на своём пульте. Они сработают, даже когда панель открыта в фоне.</p></div></div>
+                    <div class="shortcut-row"><div><label for="ptt-hotkey-input">Микрофон</label><p>Нажми, чтобы говорить. Нажми ещё раз, чтобы закончить.</p></div><input type="text" id="ptt-hotkey-input" class="shortcut-input" placeholder="ctrl+alt+m" autocomplete="off" spellcheck="false" aria-describedby="hotkey-help"></div>
+                    <div class="shortcut-row"><div><label for="summon-hotkey-input">Призвать / убрать</label><p>Персонаж появляется или плавно уходит за край экрана.</p></div><input type="text" id="summon-hotkey-input" class="shortcut-input" placeholder="ctrl+alt+b" autocomplete="off" spellcheck="false" aria-describedby="hotkey-help"></div>
+                    <div class="shortcut-row"><div><label for="screenshot-hotkey-input">Показать экран</label><p>Отправляет персонажу снимок первого монитора.</p></div><input type="text" id="screenshot-hotkey-input" class="shortcut-input" placeholder="ctrl+alt+s" autocomplete="off" spellcheck="false" aria-describedby="hotkey-help"></div>
+                    <div class="shortcut-save"><p id="hotkey-help">Минимум 3 клавиши: два модификатора и обычная клавиша.<br>Например, <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>M</kbd>. Сочетания F1–F24 не используются.</p><button id="ptt-save-button" type="button" class="button-primary">Сохранить сочетания</button></div>
+                    <section class="settings-section">
+                        <div class="settings-intro"><h2>Дай себе секунду</h2><p id="ptt-note">Пауза после призыва и снимка экрана, прежде чем персонаж начнёт отвечать.</p></div>
+                        <div class="settings-fields"><div class="field"><div class="range-heading"><label for="validation-delay">Ожидание</label><output id="validation-delay-value" for="validation-delay">2.0 с</output></div><input type="range" id="validation-delay" min="1" max="5" step="0.5" value="2"></div></div>
+                    </section>
+                </section>
+            </main>
+            <footer class="app-footer"><span id="status-message" role="status" aria-live="polite"></span><span class="footer-caption">Здесь начинается эфир.</span></footer>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/scene-config.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/studio.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/control.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teekas — Мастерская персонажей</title>
+    <link rel="icon" href="{{ url_for('static', filename='img/teekas.ico') }}">
+    <script src="{{ url_for('static', filename='js/theme.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/control.css') }}">
+</head>
+<body>
+    <a class="skip-link" href="#workspace">К редактору</a>
+    <div class="app-shell">
+        <aside class="sidebar">
+            <a class="brand" href="/control" aria-label="Teekas — в студию"><span class="brand-symbol" aria-hidden="true"><i></i><i></i><i></i></span><span>teekas<span class="brand-caption">Студия живых персонажей</span></span></a>
+            <nav class="studio-nav creator-nav" aria-label="Разделы студии">
+                <a href="/control#live">Студия</a>
+                <a href="/control#voice">Голос и образ</a>
+                <a href="/control#ai">Характер и ИИ</a>
+                <a href="/control#hotkeys">Горячие клавиши</a>
+            </nav>
+            <div class="sidebar-links"><a href="/creator" aria-current="page"><span aria-hidden="true">＋</span> Создать персонажа</a><a href="/animation" target="_blank" rel="noopener"><span aria-hidden="true">↗</span> Окно для OBS</a></div>
+            <div class="sidebar-footer"><span class="connection-light"></span><div>Локальная студия<small>Сделано Teekas</small></div></div>
+        </aside>
+        <div class="app-main">
+            <header class="topbar"><div class="breadcrumb">Рабочее пространство<span aria-hidden="true">/</span><strong>Мастерская</strong></div><div class="topbar-actions"><a href="/control#voice" class="back-link">← В студию</a><button type="button" id="theme-toggle" class="theme-toggle" aria-label="Тёмная тема" aria-pressed="false"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></svg></button></div></header>
+            <main id="workspace" tabindex="-1">
+                <div class="page-heading"><div><h1>Оживим кого-нибудь.</h1><p>Один рисунок, линия разреза — и новый участник твоего эфира.</p></div></div>
+                <div class="creator-layout" id="creator-panel">
+                    <form class="creator-settings" id="creator-form">
+                        <div class="field"><label for="char-name">Имя файла персонажа</label><input type="text" id="char-name" placeholder="Например, little_robot" pattern="[a-z0-9_]+" maxlength="64" required autocomplete="off" spellcheck="false" aria-describedby="name-hint"><small id="name-hint">Латинские буквы в нижнем регистре, цифры и знак _.</small></div>
+                        <div class="upload-field"><label for="image-upload">Рисунок персонажа</label><input type="file" id="image-upload" accept="image/png" required aria-describedby="upload-hint"><p id="upload-hint">PNG с прозрачным фоном. Голова сверху, тело снизу.</p></div>
+                        <div class="field"><div class="range-heading"><label for="cut-position">Где заканчивается голова</label><output id="cut-value" for="cut-position">50%</output></div><input type="range" id="cut-position" min="1" max="99" step="0.1" value="50" disabled aria-describedby="cut-hint"><p id="cut-hint">Поставь линию на стыке головы и тела. Можно нажать прямо на изображение.</p></div>
+                        <button id="create-button" type="submit" class="button-primary" disabled>Создать персонажа</button>
+                        <details class="rules"><summary>Как это работает</summary><p>Изображение разделится на две части. В анимации голова и тело смогут двигаться независимо. Исходный PNG останется без изменений.</p><p>Готовый персонаж появится в разделе «Голос и образ». Его характер и голос настраиваются отдельно.</p></details>
+                    </form>
+                    <section aria-label="Предпросмотр разреза">
+                        <div class="editor-workspace"><div id="image-editor"><div id="editor-placeholder"><div class="empty-portrait" aria-hidden="true"></div><h2>Здесь появится твой персонаж</h2><p>Выбери рисунок, чтобы начать.</p></div><img id="preview-image" alt="Персонаж с линией разделения головы и тела"><div id="cut-line" aria-hidden="true"></div></div></div>
+                        <p class="editor-note">Клетчатый фон помогает увидеть прозрачные края изображения.</p>
+                    </section>
+                </div>
+            </main>
+            <footer class="app-footer"><span id="status-message" role="status" aria-live="polite"></span><span class="footer-caption">Каждому эфиру нужен свой герой.</span></footer>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/creator.js') }}"></script>
+</body>
+</html>

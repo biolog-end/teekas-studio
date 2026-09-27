@@ -1,0 +1,272 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+:root {
+    --neon-pink: #ff00ff;
+    --neon-blue: #00ffff;
+    --neon-green: #39ff14;
+    --background-color: #0d0221;
+    --panel-background: rgba(10, 10, 25, 0.8);
+    --border-color: var(--neon-blue);
+    --text-color: #f0f0f0;
+    --label-color: var(--neon-pink);
+    --shadow-color: var(--neon-pink);
+    --danger-color: #ff0000;
+}
+
+@keyframes flicker {
+  0%, 18%, 22%, 25%, 53%, 57%, 100% {
+    text-shadow:
+      0 0 4px #fff,
+      0 0 11px #fff,
+      0 0 19px #fff,
+      0 0 40px var(--neon-pink),
+      0 0 80px var(--neon-pink),
+      0 0 90px var(--neon-pink);
+  }
+  20%, 24%, 55% {
+    text-shadow: none;
+  }
+}
+
+body {
+    font-family: 'VT323', monospace;
+    background-color: var(--background-color);
+    background-image: url('https://i.gifer.com/origin/c2/c255c782f7a829037ac1a8581977717f_w200.gif');
+    background-size: 200px;
+    padding: 2rem;
+    margin: 0;
+    min-height: 100vh;
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    position: relative;
+    overflow-x: hidden;
+}
+
+.decorative-gif {
+    position: fixed;
+    z-index: 100;
+    pointer-events: none;
+}
+#gif1 { top: 10%; left: 5%; width: 150px; }
+#gif2 { bottom: 5%; right: 5%; width: 100px; }
+#gif3 { top: 20%; right: 10%; width: 120px; }
+#gif4 { bottom: 15%; left: 10%; width: 80px; transform: scaleX(-1); }
+
+
+#control-panel {
+    width: 100%;
+    max-width: 800px;
+    background: var(--panel-background);
+    backdrop-filter: blur(5px);
+    padding: 2rem 2.5rem;
+    border: 2px solid var(--border-color);
+    border-radius: 0;
+    box-shadow: 0 0 15px var(--border-color), 0 0 25px var(--border-color) inset;
+    height: fit-content;
+    z-index: 10;
+}
+
+.panel-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1.5rem;
+}
+
+.panel-header h2 {
+    font-size: 3rem;
+    font-weight: normal;
+    color: var(--neon-pink);
+    text-shadow: 0 0 5px var(--neon-pink), 0 0 10px #fff;
+    margin: 0 0 0.5rem 0;
+}
+
+.panel-header p {
+    margin: 0;
+    color: var(--text-color);
+    font-size: 1.2rem;
+}
+
+.control-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem 2rem;
+    margin-bottom: 2rem;
+}
+
+.span-2 { grid-column: span 2; }
+.control-group { display: flex; flex-direction: column; }
+
+label {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    font-size: 1.3rem;
+    color: var(--label-color);
+    text-shadow: 0 0 3px var(--label-color);
+}
+
+select, textarea, input[type="text"] {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0;
+    background-color: rgba(0,0,0,0.5);
+    color: var(--neon-green);
+    font-size: 1.2rem;
+    font-family: 'VT323', monospace;
+    transition: all 0.2s;
+}
+
+select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--neon-pink);
+    box-shadow: 0 0 10px var(--neon-pink);
+}
+
+textarea { height: 100px; resize: vertical; }
+
+input[type="range"] {
+    -webkit-appearance: none; appearance: none;
+    width: 100%; height: 8px;
+    background: #333;
+    border: 1px solid var(--border-color);
+    outline: none; padding: 0; margin: 0.5rem 0;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; appearance: none;
+    width: 20px; height: 20px;
+    background: var(--neon-pink);
+    cursor: pointer;
+    border-radius: 50%;
+    border: 2px solid var(--neon-blue);
+    box-shadow: 0 0 10px var(--neon-pink);
+}
+
+.range-value {
+    font-size: 1rem;
+    color: var(--neon-green);
+    text-align: center;
+    margin-top: 0.3rem;
+}
+
+.panel-footer {
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+    text-align: center;
+}
+
+button {
+    max-width: 300px;
+    padding: 0.9rem 1.5rem;
+    font-size: 1.3rem;
+    cursor: pointer;
+    border: 1px solid var(--neon-pink);
+    background-color: transparent;
+    color: var(--neon-pink);
+    transition: background-color 0.2s, box-shadow 0.2s, color 0.2s;
+    text-shadow: 0 0 5px var(--neon-pink);
+}
+
+button:hover:not(:disabled) {
+    background-color: var(--neon-pink);
+    color: var(--background-color);
+    box-shadow: 0 0 15px var(--neon-pink);
+}
+
+button:disabled {
+    background-color: #333;
+    cursor: not-allowed;
+    color: #555;
+    border-color: #555;
+}
+
+#status-message {
+    margin-top: 1rem;
+    height: 20px;
+    font-weight: 500;
+    font-size: 1.1rem;
+    color: var(--neon-green);
+}
+
+.made-by-teekas {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    font-family: 'VT323', monospace;
+    font-size: 2rem;
+    color: #fff;
+    animation: flicker 1.5s infinite alternate;
+    z-index: 1000;
+}
+
+h3 {
+    color: var(--neon-pink);
+    text-align: center;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    text-shadow: 0 0 5px var(--neon-pink);
+}
+
+.neuro-chat-section {
+    border-top: 1px solid var(--border-color);
+    padding-top: 1.5rem;
+    margin-top: 2rem;
+}
+
+.section-divider { 
+    border-top: 1px solid var(--border-color); 
+    padding-top: 1.5rem; margin-top: 2rem; 
+}
+
+#chat-history-display { 
+    height: 150px; 
+    background-color: rgba(0,0,0,0.4); 
+    border: 1px solid var(--border-color); 
+    margin-bottom: 1rem; 
+    overflow-y: auto; 
+    padding: 0.5rem; 
+    font-size: 1rem; 
+    line-height: 1.4; 
+}
+
+#chat-history-display .user { 
+    color: var(--neon-green); 
+}
+
+#chat-history-display .model { 
+    color: var(--text-color); 
+    font-style: italic; 
+}
+
+#gemini-response-area { 
+    min-height: 50px; 
+    background-color: rgba(30,0,30,0.5); 
+    border: 1px dashed var(--neon-pink); 
+    margin: 1rem 0; 
+    padding: 0.8rem; 
+    display: none; 
+}
+        
+#gemini-response-text { 
+    color: var(--neon-pink); 
+    font-size: 1.1rem; 
+    margin-bottom: 1rem; 
+}
+
+.toggle-switch { 
+    display: flex; 
+    align-items: center;
+    gap: 10px; 
+}
+
+.persona-management {
+    display: grid; 
+    grid-template-columns: 1fr auto auto; 
+    gap: 1rem; 
+    align-items: end; 
+    margin-bottom: 1.5rem; 
+}

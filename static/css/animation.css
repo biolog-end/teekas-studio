@@ -1,0 +1,8 @@
+html, body { width: 100%; height: 100%; padding: 0; margin: 0; background: transparent !important; overflow: hidden; }
+/* No transforms on these layers: only the cutout inside the first canvas moves. */
+#character-container, #effects-canvas { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; }
+#character-container { z-index: 1; }
+#character-container canvas { display: block; }
+#effects-canvas { z-index: 2; }
+#subtitle-container { position: fixed; z-index: 3; top: 88%; left: 50%; width: 80%; transform: translate(-50%, -100%); text-align: center; pointer-events: none; color: white; font: bold 36px/1.25 Impact, "Arial Black", sans-serif; white-space: pre-wrap; overflow-wrap: anywhere; text-wrap: balance; max-height: 85vh; overflow: hidden; text-shadow: -2px -2px 0 #111, 2px -2px 0 #111, -2px 2px 0 #111, 2px 2px 0 #111, 0 4px 9px #0009; transition: opacity 240ms; }
+@media (prefers-reduced-motion: reduce) { #subtitle-container { transition: none; } }

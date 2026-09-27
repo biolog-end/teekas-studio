@@ -1,0 +1,12 @@
+Flask>=3.0,<4
+Pillow>=10,<13
+colorama>=0.4.6,<1
+google-genai>=1.0,<2
+gTTS>=2.5,<3
+keyboard>=0.13.5,<1
+openai>=3.7,<4
+pydub>=0.25.1,<1
+
+# Optional shared quota trackers; Teekas Studio.bat installs them from %USERPROFILE% when present:
+# pip install -e %USERPROFILE%\openai_budget
+# pip install -e %USERPROFILE%\gemini_budget

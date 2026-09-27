@@ -1,0 +1,51 @@
+[
+  {
+    "id": "bad_to_the_bone",
+    "name": "Bad to the Bone",
+    "audio": "static/sfx/bad-to-the-bone.mp3",
+    "subtitle": "*Bad to the Bone riff*",
+    "overlayAnimation": null
+  },
+  {
+    "id": "social_credit",
+    "name": "Social Credit Siren",
+    "audio": "static/sfx/999-social-credit-siren.mp3",
+    "subtitle": "*Социальный рейтинг понижен*",
+    "overlayAnimation": "overlaySocialCredit"
+  },
+  {
+    "id": "discord_call",
+    "name": "Discord Call",
+    "audio": "static/sfx/discord-call-sound.mp3",
+    "subtitle": "*Incoming Call*",
+    "overlayAnimation": null
+  },
+  {
+    "id": "falling_pipe",
+    "name": "Falling Pipe",
+    "audio": "static/sfx/falling-pipe.mp3",
+    "subtitle": "*CLANG*",
+    "overlayAnimation": "overlayFallingPipes"
+  },
+  {
+    "id": "to_be_continued",
+    "name": "To Be Continued",
+    "audio": "static/sfx/to-be-continued.mp3",
+    "subtitle": "*To Be Continued...*",
+    "overlayAnimation": "overlayToBeContinued"
+  },
+  {
+    "id": "vine_boom",
+    "name": "Vine Boom",
+    "audio": "static/sfx/vine-boom.mp3",
+    "subtitle": "*BOOM*",
+    "overlayAnimation": "overlayVineBoom"
+  },
+  {
+    "id": "answer_42",
+    "name": "42",
+    "audio": "static/sfx/42.mp3",
+    "subtitle": "*Ответ на главный вопрос жизни, вселенной и всего такого*",
+    "overlayAnimation": "overlayAnswer42"
+  }
+]
