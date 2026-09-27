@@ -44,13 +44,8 @@ if errorlevel 1 (
 )
 
 :: Free-tier counters are shared by all projects of this Windows user.
-for %%L in (openai_budget gemini_budget) do (
-    "%PYTHON%" -c "import %%L" > nul 2>&1
-    if errorlevel 1 if exist "%USERPROFILE%\%%L\pyproject.toml" (
-        echo   Ставлю общую библиотеку %%L...
-        "%PYTHON%" -m pip install -e "%USERPROFILE%\%%L" -q
-    )
-)
+call :ensure_lib openai_budget openai-budget
+call :ensure_lib gemini_budget gemini-budget
 
 echo.
 echo   Студия запускается. Панель откроется в браузере сама.
@@ -66,3 +61,17 @@ echo.
 echo   Студия остановлена с ошибкой %APP_EXIT_CODE%. Смотрите сообщение выше.
 pause
 exit /b %APP_EXIT_CODE%
+
+:: A local checkout in %USERPROFILE% wins over the GitHub copy.
+:ensure_lib
+"%PYTHON%" -c "import %1" > nul 2>&1
+if not errorlevel 1 exit /b 0
+if exist "%USERPROFILE%\%1\pyproject.toml" (
+    echo   Ставлю общую библиотеку %1...
+    "%PYTHON%" -m pip install -e "%USERPROFILE%\%1" -q
+) else (
+    echo   Ставлю общую библиотеку %1 с GitHub...
+    "%PYTHON%" -m pip install "git+https://github.com/biolog-end/%2.git" -q
+)
+if errorlevel 1 echo   Не удалось установить %1: студия будет работать без учёта квот.
+exit /b 0

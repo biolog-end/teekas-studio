@@ -41,7 +41,7 @@ friendly). The interface is in Russian; section names below are given in both la
 
 1. Clone the repository.
 2. Run **`Teekas Studio.bat`**. On the first run it installs the dependencies from
-   `requirements.txt`. Then it starts the server and opens the control panel as soon
+   `requirements.txt` and the optional quota trackers. Then it starts the server and opens the control panel as soon
    as it is ready. If the studio is already running, it only opens the panel.
 3. Open **Keys and limits** («Ключи и лимиты») in the panel and add your API keys.
 4. Press **Summon character** («Призвать персонажа») and write or say something.
@@ -92,8 +92,10 @@ python -m venv .venv
   («Размышлять перед ответом») for deeper replies.
 - **Memory.** Long conversations are either summarised, trimmed or kept whole,
   depending on the persona settings.
-- **Quota trackers** (optional). If the `gemini_budget` and `openai_budget` packages are
-  installed, Gemini requests are reserved against the free daily quota, OpenAI requests
+- **Quota trackers** (optional):
+  [gemini_budget](https://github.com/biolog-end/gemini-budget) and
+  [openai_budget](https://github.com/biolog-end/openai-budget). The launcher installs
+  them automatically. When they are installed, Gemini requests are reserved against the free daily quota, OpenAI requests
   are checked against the free daily token budget, and the panel shows what is left.
   Without them everything still works, just without the pre-checks.
 
